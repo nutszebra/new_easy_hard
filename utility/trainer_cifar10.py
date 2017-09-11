@@ -131,6 +131,9 @@ class Cifar10Trainer(object):
             utility.write('load {}'.format(path))
             self.model.eval()
             self.model.load_state_dict(torch.load(path))
+        else:
+            utility.write('weight initilization')
+            self.model.weight_initialization()
 
     def run(self):
         for i in utility.create_progressbar(self.epochs + 1, desc='epoch', stride=1, start=self.start_epoch):
