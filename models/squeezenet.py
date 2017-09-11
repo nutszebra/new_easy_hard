@@ -33,7 +33,7 @@ class FireModule(NN):
         self.bn_relu_conv_e_1x1.weight_initialization()
         self.bn_relu_conv_e_3x3.weight_initialization()
 
-    def __call__(self, x):
+    def forward(self, x):
         h = self.bn_relu_conv_s_1x1(x)
         h1 = self.bn_relu_conv_e_1x1(h)
         h2 = self.bn_relu_conv_e_3x3(h)
@@ -66,7 +66,7 @@ class SqueezeNet(NN):
             self['fire{}'.format(i)].weight_initialization()
         self.bn_relu_conv10.weight_initialization()
 
-    def __call__(self, x, train=True):
+    def forward(self, x, train=True):
         h = self.conv1(x)
         h = F.max_pool2d(h, (3, 3), (2, 2), (1, 1))
         h = self.fire2(h)
