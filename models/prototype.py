@@ -5,7 +5,7 @@ import functools
 import torch
 import torch.nn.functional as F
 from torch.autograd import Variable
-from nutszebra_initialization import Initialization as initializer
+from .nutszebra_initialization import Initialization as initializer
 
 
 class NN(nn.Module):
