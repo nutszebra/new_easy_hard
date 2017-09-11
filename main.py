@@ -1,5 +1,5 @@
 import argparse
-from models import resnet
+from models import resnet, densenet
 from utility.trainer_cifar10 import Cifar10Trainer
 from utility.optimizers import MomentumSGD
 
