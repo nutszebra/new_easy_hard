@@ -9,5 +9,6 @@
     # DenseNet: growth_rate=12, depth=40
     run main.py --gpu 0 --save_path ./result_densenet_12_40 --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model densenet.DenselyConnectedCNN(10,block_num=3,block_size=int((40-2)/3.0),growth_rate=12) --trainer Cifar10Trainer
     # SqueezeNet
-    run main.py --gpu 0 --save_path ./result_squeezenet --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model squeezenet.SqueezeNet(10) --trainer Cifar10Trainer
+    run main.py --gpu 0 --save_path ./result_squeezenet --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model squeezenet.SqueezeNet(10) --trainer Cifar10Trainer --train_transform transformers.train_cifar10_224 --test_transform transformers.test_cifar10_224
+
 
