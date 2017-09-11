@@ -79,7 +79,7 @@ class NN(nn.Module):
         x = F.avg_pool2d(x, (height, width), 1, 0)
         return x.view(batch, ch)
 
-    def __call__(self, *args, **kwargs):
+    def forward(self, *args, **kwargs):
         return args[0]
 
     def calc_loss(self, y, t):

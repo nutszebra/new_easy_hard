@@ -55,7 +55,7 @@ class ResBlock(NN):
             self['bn_relu_conv2_{}'.format(i)].weight_initialization()
             self['bn_relu_conv3_{}'.format(i)].weight_initialization()
 
-    def __call__(self, x):
+    def forward(self, x):
         for i in six.moves.range(self.n):
             h = self['bn_relu_conv1_{}'.format(i)](x)
             h = self['bn_relu_conv2_{}'.format(i)](h)
@@ -93,7 +93,7 @@ class ResidualNetwork(NN):
             self['res_block{}'.format(i)].weight_initialization()
         self.bn_relu_conv.weight_initialization()
 
-    def __call__(self, x):
+    def forward(self, x):
         h = F.relu(self.conv1(x))
         for i in six.moves.range(len(self.out_channels)):
             h = self['res_block{}'.format(i)](h)
