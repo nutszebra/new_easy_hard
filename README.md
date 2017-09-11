@@ -12,5 +12,7 @@
     run main.py --gpu 0 --save_path ./result_squeezenet --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model squeezenet.SqueezeNet(10) --trainer Cifar10Trainer --train_transform transformers.train_cifar10_224 --test_transform transformers.test_cifar10_224
     # AlexNet
     run main.py --gpu 0 --save_path ./result_alexnet --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model alexnet.AlexNet(10) --trainer Cifar10Trainer --train_transform transformers.train_cifar10_224 --test_transform transformers.test_cifar10_224 --lr 0.01
+    # VGG A
+    run main.py --gpu 0 --save_path ./result_vgg_a --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model vgg_a.VGGA(10) --trainer Cifar10Trainer --train_transform transformers.train_cifar10_224 --test_transform transformers.test_cifar10_224 --lr 0.01
 
 
