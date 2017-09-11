@@ -80,13 +80,13 @@ class DenselyConnectedCNN(NN):
             if i <= self.block_num - 1:
                 self['trans{}'.format(i)].weight_initialization()
 
-    def forward(self, x, train=False):
+    def forward(self, x):
         h = self.conv1(x)
         for i in six.moves.range(self.block_num):
-            h = self['dense{}'.format(i)](h, train=train)
+            h = self['dense{}'.format(i)](h)
             if i <= self.block_num - 1:
-                h = self['trans{}'.format(i)](h, train=train)
-        h = F.relu(self.bn1(h, test=not train))
+                h = self['trans{}'.format(i)](h)
+        h = F.relu(self.bn1(h))
         h = self.global_average_pooling(h)
         h = self.fc1(h)
         return h
