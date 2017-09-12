@@ -1,2 +1,8 @@
 data
 data/*
+
+data_cifar10
+data_cifar10/*
+
+data_cifar100
+data_cifar100/*

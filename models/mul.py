@@ -22,7 +22,7 @@ class Mul(InplaceFunction):
 
     @staticmethod
     def forward(ctx, input1, input2, train=False):
-        if x.volatile:
+        if input1.volatile:
             p1, p2 = Mul._make_noise(input1)
         else:
             p1, p2 = Mul._make_noise(input1)
