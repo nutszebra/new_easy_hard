@@ -11,8 +11,8 @@ class Mul(InplaceFunction):
         p2 = input.new().resize_as_(input)
         p2.fill_(1.0)
         for i in range(p1.shape[0]):
-            p1[i] = torch.rand(1)[0]
-            p2[i] -= p1[i]
+            p1[i, :] = torch.rand(1)[0]
+            p2[i, :] -= p1[i]
         return p1, p2
 
     @staticmethod
