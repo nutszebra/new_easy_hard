@@ -52,12 +52,12 @@ class Cifar10Trainer(object):
 
         # load dataset
         self.train_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR10('./data', train=True, download=True,
+            datasets.CIFAR10('./data_cifar10', train=True, download=True,
                              transform=self.train_transform),
             batch_size=self.train_batch_size, shuffle=True, **kwargs)
 
         self.test_loader = torch.utils.data.DataLoader(
-            datasets.CIFAR10('./data', train=False,
+            datasets.CIFAR10('./data_cifar10', train=False,
                              transform=self.test_transform),
             batch_size=self.test_batch_size, shuffle=False, **kwargs)
 
