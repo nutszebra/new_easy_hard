@@ -15,9 +15,17 @@ class Mul(InplaceFunction):
             p2[i, :] -= p1[i]
         return p1, p2
 
+    def _make_test(input):
+        p = input.new().resize_as_(input)
+        p.fill_(0.5)
+        return p, p
+
     @staticmethod
     def forward(ctx, input1, input2, train=False):
-        p1, p2 = Mul._make_noise(input1)
+        if x.volatile:
+            p1, p2 = Mul._make_noise(input1)
+        else:
+            p1, p2 = Mul._make_noise(input1)
         return p1 * input2 + p2 * input2
 
     @staticmethod
