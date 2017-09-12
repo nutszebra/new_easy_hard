@@ -54,7 +54,7 @@ class AlexNet(NN):
         self.conv5.weight_initialization(), self.fc6.weight_initialization()
         self.fc7.weight_initialization(), self.fc8.weight_initialization()
 
-    def __call__(self, x, train=False):
+    def forward(self, x, train=False):
         h = F.max_pool2d(
             F.relu(self.conv1(x)), 3, 2, 0)
         h = F.max_pool2d(

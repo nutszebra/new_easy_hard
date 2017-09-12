@@ -58,7 +58,7 @@ class VGGA(NN):
         self.conv5_1.weight_initialization(), self.conv5_2.weight_initialization()
         self.fc1.weight_initialization(), self.fc2.weight_initialization(), self.fc3.weight_initialization()
 
-    def __call__(self, x, train=False):
+    def forward(self, x, train=False):
         h = F.relu(self.conv1(x))
         h = F.max_pool2d(h, (2, 2), (2, 2), (0, 0))
         h = F.relu(self.conv2(h))
