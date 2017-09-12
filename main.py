@@ -1,7 +1,8 @@
 import argparse
-from models import resnet
+from models import resnet, densenet, squeezenet, alexnet, vgg_a, resnext
 from utility.trainer_cifar10 import Cifar10Trainer
 from utility.optimizers import MomentumSGD
+import utility.transformers as transformers
 
 parser = argparse.ArgumentParser(description='PyTorch cifar10 Example')
 parser.add_argument('--gpu', type=int, default=-1, metavar='N',
@@ -28,11 +29,17 @@ parser.add_argument('--model', type=str, default='resnet.ResidualNetwork(10, out
                     help='model definition here')
 parser.add_argument('--trainer', type=str, default='Cifar10Trainer', metavar='M',
                     help='model definition here')
+parser.add_argument('--train_transform', type=str, default=None, metavar='M',
+                    help='train transform')
+parser.add_argument('--test_transform', type=str, default=None, metavar='M',
+                    help='train transform')
 args = parser.parse_args().__dict__
 print('Args')
 print('    {}'.format(args))
 lr, momentum = args.pop('lr'), args.pop('momentum')
 model, trainer = args.pop('model'), args.pop('trainer')
+exec('{}={}'.format("args['train_transform']", args['train_transform']))
+exec('{}={}'.format("args['test_transform']", args['test_transform']))
 
 # define model
 exec('model = {}'.format(model))

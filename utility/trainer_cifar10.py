@@ -126,7 +126,7 @@ class Cifar10Trainer(object):
         self.model.eval()
         torch.save(self.model.state_dict(), '{}/{}_{}.model'.format(self.save_path, self.model.name, i))
 
-    def load(self, path):
+    def load(self, path=None):
         if path is not None:
             utility.write('load {}'.format(path))
             self.model.eval()
