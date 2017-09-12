@@ -1,5 +1,5 @@
 import argparse
-from models import resnet, densenet, squeezenet, alexnet
+from models import resnet, densenet, squeezenet, alexnet, vgg_a
 from utility.trainer_cifar10 import Cifar10Trainer
 from utility.optimizers import MomentumSGD
 import utility.transformers as transformers
