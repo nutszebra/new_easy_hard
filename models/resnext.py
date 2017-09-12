@@ -93,7 +93,7 @@ class ResNextBlock(NN):
         self.group_conv_2.weight_initialization()
         self.bn_relu_conv_3.weight_initialization()
 
-    def __call__(self, x):
+    def forward(self, x):
         h = self.conv_bn_relu_1(x)
         h = self.group_conv_2(h)
         h = self.bn_relu_conv_3(h)
