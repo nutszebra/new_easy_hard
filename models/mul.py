@@ -22,8 +22,8 @@ class Mul(InplaceFunction):
 
     @staticmethod
     def forward(ctx, input1, input2, train=False):
-        if input1.volatile:
-            p1, p2 = Mul._make_noise(input1)
+        if train:
+            p1, p2 = Mul._make_test(input1)
         else:
             p1, p2 = Mul._make_noise(input1)
         return p1 * input2 + p2 * input2
@@ -34,8 +34,8 @@ class Mul(InplaceFunction):
         return Variable(grad_output.data * p1), Variable(grad_output.data * p2), None
 
 
-def mul(x1, x2):
-    return Mul.apply(x1, x2)
+def mul(x1, x2, train=False):
+    return Mul.apply(x1, x2, train=train)
 
 
 if __name__ == '__main__':

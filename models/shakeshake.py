@@ -87,7 +87,7 @@ class ResBlock(NN):
         for i in six.moves.range(self.branch_num):
             branches.append(self['branch{}'.format(i)](x))
         x = self.identity(x)
-        return mul(*branches) + x
+        return mul(*branches, train=x.volatile) + x
 
 
 class ShakeShake(NN):
