@@ -143,6 +143,5 @@ class ResNext(NN):
         for i, n in enumerate(self.block_num):
             for ii in six.moves.range(n):
                 h = self['resnext_block_{}_{}'.format(i, ii)](h)
-        print(h.data.shape)
         h = self.global_average_pooling(h)
         return self.linear(h)
