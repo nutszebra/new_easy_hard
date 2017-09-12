@@ -35,7 +35,7 @@ class Mul(InplaceFunction):
 
 
 def mul(x1, x2, train=False):
-    return Mul.apply(x1, x2, train=train)
+    return Mul.apply(x1, x2, train)
 
 
 if __name__ == '__main__':
