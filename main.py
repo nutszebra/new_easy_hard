@@ -1,6 +1,7 @@
 import argparse
-from models import resnet, densenet, squeezenet, alexnet, vgg_a, resnext
+from models import resnet, densenet, squeezenet, alexnet, vgg_a, resnext, shakeshake
 from utility.trainer_cifar10 import Cifar10Trainer
+from utility.trainer_cifar100 import Cifar100Trainer
 from utility.optimizers import MomentumSGD
 import utility.transformers as transformers
 
