@@ -108,10 +108,10 @@ class ResNext(NN):
         super(ResNext, self).__init__()
         weight_init_queue = []
         # conv
-        self.conv_bn_relu = Conv_BN_ReLU(3, 64, 7, 1, 3)
+        self.conv_bn_relu = Conv_BN_ReLU(3, d * C, 3, 1, 1)
         weight_init_queue.append(self.conv_bn_relu)
         out_channels = [(C * d * i, C * d * i, d * i * multiplier) for i in [2 ** x for x in six.moves.range(len(block_num))]]
-        in_channel = 64
+        in_channel = d * C
         for i, n in enumerate(block_num):
             for ii in six.moves.range(n):
 
