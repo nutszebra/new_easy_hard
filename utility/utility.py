@@ -1,6 +1,7 @@
 import os
 import six
 from tqdm import tqdm
+import six.moves.cPickle as pickle
 
 
 def make_dir_one(path):
@@ -30,6 +31,21 @@ def find_files(path, affix_flag=False):
 
 def remove_slash(path):
     return path[:-1] if path[-1] == '/' else path
+
+
+def load_pickle(path, encoding=None):
+    with open(path, 'rb') as f:
+        if encoding is None:
+            answer = pickle.load(f)
+        else:
+            answer = pickle.load(f, encoding=encoding)
+    return answer
+
+
+def save_pickle(data, path):
+    with open(path, 'wb') as f:
+        pickle.dump(data, f)
+    return True
 
 
 def create_progressbar(end, desc='', stride=1, start=0):

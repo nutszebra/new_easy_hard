@@ -39,3 +39,8 @@
     run main.py --gpu 0 --save_path ./result_cifar100_resnext_2_64 --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model resnext.ResNext(100,block_num=(3,)*3,C=2,d=64,multiplier=4)  --trainer Cifar100Trainer
     # ShakeShake: 64
     run main.py --gpu 0 --save_path ./result_cifat100_shakeshake_64 --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model shakeshake.ShakeShake(100,out_channels=(64,64*2,64*4),N=(4,)*3,branch_num=2)  --trainer Cifar100Trainer
+
+# CIFAR-10: Detect Hard Examples
+    # ResNet 164
+    run main_hard.py --gpu 0 --save_path ./result_hard_resnet --train_batch_size 64 --test_batch_size 100 --start_epoch 0 --epochs 200 --model resnet.ResidualNetwork(10,out_channels=(16,32,64),N=(18,18,18),multiplier=4) --trainer Cifar10Trainer --howmany 1
+
