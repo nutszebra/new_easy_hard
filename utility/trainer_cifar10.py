@@ -118,9 +118,10 @@ class Cifar10Trainer(object):
             sum_loss += loss.cpu().data[0] * self.test_batch_size
             # accuracy
             y = y.data.max(1, keepdim=True)[1]
-            if keep:
-                results += list(y)
             accuracy += y.eq(t.data.view_as(y)).cpu().sum()
+            if keep:
+                y = y.cpu()
+                results += list(y)
         sum_loss /= len(self.test_loader.dataset)
         accuracy /= len(self.test_loader.dataset)
         self.to_cpu()

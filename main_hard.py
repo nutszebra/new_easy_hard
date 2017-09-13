@@ -35,9 +35,12 @@ parser.add_argument('--train_transform', type=str, default=None, metavar='M',
                     help='train transform')
 parser.add_argument('--test_transform', type=str, default=None, metavar='M',
                     help='train transform')
+parser.add_argument('--howmany', type=int, default=1, metavar='M',
+                    help='how many times do you try?')
 args = parser.parse_args().__dict__
 print('Args')
 print('    {}'.format(args))
+howmany = args.pop('howmany')
 lr, momentum = args.pop('lr'), args.pop('momentum')
 model_name, trainer_name = args.pop('model'), args.pop('trainer')
 # deine optimizer
@@ -46,14 +49,15 @@ exec('{}={}'.format("args['train_transform']", args['train_transform']))
 exec('{}={}'.format("args['test_transform']", args['test_transform']))
 
 for i in utility.create_progressbar(args['epochs'], desc='hard', start=args['start_epoch']):
-    # define model
-    exec('model = {}'.format(model_name))
-    print('Model')
-    print('    name: {}'.format(model.name))
-    print('    parameters: {}'.format(model.count_parameters()))
-    # deine fake optimizer
-    optimizer = MomentumSGD(model, lr=lr, momentum=momentum, schedule=[100, 150], lr_decay=0.1)
-    args['model'], args['optimizer'] = model, optimizer
-    exec('main = {}(**args)'.format(trainer_name))
-    main.train_one_epoch()
+    for ii in utility.create_progressbar(howmany, desc='trial'):
+        # define model
+        exec('model = {}'.format(model_name))
+        print('Model')
+        print('    name: {}'.format(model.name))
+        print('    parameters: {}'.format(model.count_parameters()))
+        # deine fake optimizer
+        optimizer = MomentumSGD(model, lr=lr, momentum=momentum, schedule=[100, 150], lr_decay=0.1)
+        args['model'], args['optimizer'] = model, optimizer
+        exec('main = {}(**args)'.format(trainer_name))
+        main.train_one_epoch()
     results = main.test_one_epoch(keep=True)
