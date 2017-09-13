@@ -100,12 +100,14 @@ class Cifar10Trainer(object):
         self.to_cpu()
         return sum_loss / len(self.train_loader.dataset)
 
-    def test_one_epoch(self):
+    def test_one_epoch(self, keep=False):
         self.to_gpu()
         self.model.eval()
         sum_loss = 0
         accuracy = 0
         progressbar = utility.create_progressbar(self.test_loader, desc='test')
+        if keep:
+            results = []
         for x, t in progressbar:
             if self.check_gpu():
                 x, t = x.cuda(self.gpu), t.cuda(self.gpu)
@@ -116,11 +118,16 @@ class Cifar10Trainer(object):
             sum_loss += loss.cpu().data[0] * self.test_batch_size
             # accuracy
             y = y.data.max(1, keepdim=True)[1]
+            if keep:
+                results += list(y)
             accuracy += y.eq(t.data.view_as(y)).cpu().sum()
         sum_loss /= len(self.test_loader.dataset)
         accuracy /= len(self.test_loader.dataset)
         self.to_cpu()
-        return sum_loss, accuracy
+        if keep:
+            return sum_loss, accuracy, keep
+        else:
+            return sum_loss, accuracy
 
     def save(self, i):
         self.model.eval()

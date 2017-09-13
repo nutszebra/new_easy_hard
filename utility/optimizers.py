@@ -2,6 +2,21 @@ import torch.optim as optim
 import utility
 
 
+class FakeOptimizer(object):
+
+    def __call__(self, i):
+        pass
+
+    def step(self):
+        pass
+
+    def zero_grad(self):
+        pass
+
+    def info(self):
+        pass
+
+
 class MomentumSGD(object):
 
     def __init__(self, model, lr, momentum, schedule=[10, 20], lr_decay=0.1, weight_decay=1.0e-4):
