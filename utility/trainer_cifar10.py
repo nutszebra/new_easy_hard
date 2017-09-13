@@ -125,7 +125,7 @@ class Cifar10Trainer(object):
         accuracy /= len(self.test_loader.dataset)
         self.to_cpu()
         if keep:
-            return sum_loss, accuracy, keep
+            return sum_loss, accuracy, results
         else:
             return sum_loss, accuracy
 
