@@ -42,5 +42,5 @@
 
 # CIFAR-10: Detect Hard Examples
     # ResNet 164
-    run main_hard.py --gpu 0 --save_path ./result_hard_resnet --train_batch_size 64 --test_batch_size 100 --start_epoch 1 --epochs 200 --model resnet.ResidualNetwork(10,out_channels=(16,32,64),N=(18,18,18),multiplier=4) --trainer Cifar10Trainer
+    run main_hard.py --gpu 0 --save_path ./result_hard_resnet --train_batch_size 64 --test_batch_size 100 --start_epoch 0 --epochs 200 --model resnet.ResidualNetwork(10,out_channels=(16,32,64),N=(18,18,18),multiplier=4) --trainer Cifar10Trainer --howmany 1
 
