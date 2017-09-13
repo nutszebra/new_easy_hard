@@ -1,4 +1,5 @@
 import argparse
+import numpy as np
 from models import resnet, densenet, squeezenet, alexnet, vgg_a, resnext, shakeshake
 from utility.trainer_cifar10 import Cifar10Trainer
 from utility.trainer_cifar100 import Cifar100Trainer
