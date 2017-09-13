@@ -121,7 +121,8 @@ class Cifar10Trainer(object):
             accuracy += y.eq(t.data.view_as(y)).cpu().sum()
             if keep:
                 y = y.cpu()
-                results += list(y)
+                y = y.numpy().tolist()
+                results += y
         sum_loss /= len(self.test_loader.dataset)
         accuracy /= len(self.test_loader.dataset)
         self.to_cpu()
