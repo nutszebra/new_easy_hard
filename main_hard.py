@@ -61,3 +61,4 @@ for i in utility.create_progressbar(args['epochs'], desc='hard', start=args['sta
         exec('main = {}(**args)'.format(trainer_name))
         main.train_one_epoch()
     results = main.test_one_epoch(keep=True)
+    utility.save_pickle(np.array(results[2])[:, 0].tolist(), '{}/{}_{}.pkl'.format(main.save_path, howmany, i))
