@@ -6,8 +6,8 @@ from torch.autograd import grad
 def hvp(y, w, v):
     first_grads = grad(y, w, retain_graph=True, create_graph=True)
     grad_v = 0
-    for g, v in six.moves.zip(first_grads, v):
-        grad_v += torch.sum(g * v)
+    for g, _v in six.moves.zip(first_grads, v):
+        grad_v += torch.sum(g * _v)
     return grad(grad_v, w, create_graph=True)
 
 
