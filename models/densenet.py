@@ -60,8 +60,8 @@ class DenselyConnectedCNN(NN):
 
     def __init__(self, category_num, block_num=3, block_size=32, growth_rate=12):
         super(DenselyConnectedCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 16, 3, 1, 1)
-        in_channel = 16
+        self.conv1 = nn.Conv2d(3, growth_rate * 2, 3, 1, 1)
+        in_channel = growth_rate * 2
         for i in six.moves.range(block_num):
             self['dense{}'.format(i)] = DenseBlock(in_channel, block_size, growth_rate)
             in_channel = in_channel + growth_rate * block_size
