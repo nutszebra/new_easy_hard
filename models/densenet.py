@@ -24,7 +24,7 @@ class Transition_Layer(NN):
 
     def __init__(self, in_channel, out_channel):
         super(Transition_Layer, self).__init__()
-        self.bn_relu_conv = BN_ReLU_Conv(in_channel, in_channel, filter_size=(1, 1), stride=(1, 1), pad=(0, 0))
+        self.bn_relu_conv = BN_ReLU_Conv(in_channel, out_channel, filter_size=(1, 1), stride=(1, 1), pad=(0, 0))
 
     def weight_initialization(self):
         self.bn_relu_conv.weight_initialization()
@@ -35,20 +35,23 @@ class Transition_Layer(NN):
 
 class DenseBlock(NN):
 
-    def __init__(self, in_channel, block_size=32, growth_rate=12):
+    def __init__(self, in_channel, block_size=16, growth_rate=12, multiplier=4):
         super(DenseBlock, self).__init__()
         for i in six.moves.range(block_size):
-            self['bn_relu_conv{}'.format(i)] = BN_ReLU_Conv(in_channel, growth_rate)
+            self['bn_relu_conv{}_1'.format(i)] = BN_ReLU_Conv(in_channel, growth_rate * multiplier, 1, 1, 0)
+            self['bn_relu_conv{}_2'.format(i)] = BN_ReLU_Conv(growth_rate * multiplier, growth_rate, 3, 1, 1)
             in_channel = in_channel + growth_rate
         self.block_size = block_size
 
     def weight_initialization(self):
         for i in six.moves.range(self.block_size):
-            self['bn_relu_conv{}'.format(i)].weight_initialization()
+            self['bn_relu_conv{}_1'.format(i)].weight_initialization()
+            self['bn_relu_conv{}_2'.format(i)].weight_initialization()
 
     def forward(self, x):
         for i in six.moves.range(self.block_size):
-            h = self['bn_relu_conv{}'.format(i)](x)
+            h = self['bn_relu_conv{}_1'.format(i)](x)
+            h = self['bn_relu_conv{}_2'.format(i)](h)
             x = torch.cat((x, h), 1)
         return x
 
@@ -64,7 +67,8 @@ class DenselyConnectedCNN(NN):
             in_channel = in_channel + growth_rate * block_size
             # if block_num=3, then trans1 and trans2 are used
             if i <= block_num - 1:
-                self['trans{}'.format(i)] = Transition_Layer(in_channel, in_channel)
+                self['trans{}'.format(i)] = Transition_Layer(in_channel, int(in_channel * 0.5))
+                in_channel = int(in_channel * 0.5)
         self['bn1'] = nn.BatchNorm2d(in_channel)
         self['fc1'] = nn.Linear(in_channel, category_num)
         self.block_num = block_num
