@@ -66,7 +66,7 @@ class DenselyConnectedCNN(NN):
             self['dense{}'.format(i)] = DenseBlock(in_channel, block_size, growth_rate)
             in_channel = in_channel + growth_rate * block_size
             # if block_num=3, then trans1 and trans2 are used
-            if i <= block_num - 1:
+            if i <= block_num - 2:
                 self['trans{}'.format(i)] = Transition_Layer(in_channel, int(in_channel * 0.5))
                 in_channel = int(in_channel * 0.5)
         self['bn1'] = nn.BatchNorm2d(in_channel)
@@ -88,7 +88,7 @@ class DenselyConnectedCNN(NN):
         h = self.conv1(x)
         for i in six.moves.range(self.block_num):
             h = self['dense{}'.format(i)](h)
-            if i <= self.block_num - 1:
+            if i <= self.block_num - 2:
                 h = self['trans{}'.format(i)](h)
         h = F.relu(self.bn1(h))
         h = self.global_average_pooling(h)
