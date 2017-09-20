@@ -74,7 +74,10 @@ class ResidualNetwork(NN):
         strides = [1] + [2] * (len(out_channels) - 1)
         # create resblock
         for i, out_channel, n, stride in six.moves.zip(six.moves.range(len(out_channels)), out_channels, N, strides):
-            bridge = Bridge(in_channel, out_channel - in_channel, pool_flag=stride == 2)
+            if (out_channel - in_channel) == 0:
+                bridge = NN()
+            else:
+                bridge = Bridge(in_channel, out_channel - in_channel, pool_flag=stride == 2)
             self['res_block{}'.format(i)] = ResBlock(in_channel, out_channel, n=n, stride_at_first_layer=stride, bridge=bridge)
             in_channel = out_channel
         self.bn_relu_conv = BN_ReLU_Conv(in_channel, category_num, filter_size=(1, 1), stride=(1, 1), pad=(0, 0))
