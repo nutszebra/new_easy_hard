@@ -23,9 +23,9 @@ class Mul(InplaceFunction):
     @staticmethod
     def forward(ctx, input1, input2, train=False):
         if train:
-            p1, p2 = Mul._make_test(input1)
-        else:
             p1, p2 = Mul._make_noise(input1)
+        else:
+            p1, p2 = Mul._make_test(input1)
         return p1 * input2 + p2 * input2
 
     @staticmethod

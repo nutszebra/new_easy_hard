@@ -64,7 +64,7 @@ class Double(NN):
 
     def forward(self, x):
         x1 = self.conv1(F.avg_pool2d(x, 1, 2, 0))
-        x2 = self.conv2(F.avg_pool2d(F.pad(x[:, :, 1:, 1:], (1, 0, 1, 0)), 1, 2, 0))
+        x2 = self.conv2(F.avg_pool2d(F.pad(x[:, :, 1:, 1:], (0, 1, 0, 1)), 1, 2, 0))
         return self.bn(torch.cat((x1, x2), 1))
 
 
