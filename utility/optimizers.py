@@ -21,7 +21,7 @@ class MomentumSGD(object):
 
     def __init__(self, model, lr, momentum, schedule=[10, 20], lr_decay=0.1, weight_decay=1.0e-4, nesterov=True):
         self.model, self.lr, self.momentum = model, lr, momentum
-        self.schedule, self.lr_decay, self.weight_decay, nesterov = schedule, lr_decay, weight_decay, nesterov
+        self.schedule, self.lr_decay, self.weight_decay, self.nesterov = schedule, lr_decay, weight_decay, nesterov
         self.optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum, weight_decay=weight_decay, nesterov=nesterov)
 
     def __call__(self, i):
