@@ -52,7 +52,7 @@ print('Model')
 print('    name: {}'.format(model.name))
 print('    parameters: {}'.format(model.count_parameters()))
 # deine optimizer
-optimizer = MomentumSGD(model, lr=lr, momentum=momentum, nesterov=nesterov, schedule=[100, 150], lr_decay=0.1, weight_decay=weight_decay)
+optimizer = MomentumSGD(model, lr=lr, momentum=momentum, schedule=[100, 150], lr_decay=0.1, weight_decay=weight_decay, nesterov=nesterov)
 optimizer.info()
 
 args['model'], args['optimizer'] = model, optimizer
