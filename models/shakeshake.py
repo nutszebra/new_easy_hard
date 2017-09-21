@@ -122,7 +122,6 @@ class ShakeShake(NN):
         for i in six.moves.range(len(self.out_channels)):
             for n in six.moves.range(self.N[i]):
                 h = self['res_block{}_{}'.format(i, n)](h)
-                print(h.data.shape)
         h = self.linear(h)
         h = self.global_average_pooling(h)
         return h
