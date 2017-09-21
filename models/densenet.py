@@ -81,7 +81,7 @@ class DenselyConnectedCNN(NN):
         self.fc1.bias.data = torch.FloatTensor(NN.bias_initialization(self.fc1, constant=0))
         for i in six.moves.range(self.block_num):
             self['dense{}'.format(i)].weight_initialization()
-            if i <= self.block_num - 1:
+            if i <= self.block_num - 2:
                 self['trans{}'.format(i)].weight_initialization()
 
     def forward(self, x):
