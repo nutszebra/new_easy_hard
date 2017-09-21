@@ -12,7 +12,7 @@ class Mul(InplaceFunction):
         p2.fill_(1.0)
         for i in range(p1.shape[0]):
             p1[i, :] = torch.rand(1)[0]
-            p2[i, :] -= p1[i]
+        p2 = p2 - p1
         return p1, p2
 
     def _make_test(input):
