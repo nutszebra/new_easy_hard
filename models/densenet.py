@@ -7,14 +7,14 @@ from .prototype import NN
 
 class BN_ReLU_Conv(NN):
 
-    def __init__(self, in_channel, out_channel, filter_size=(3, 3), stride=(1, 1), pad=(1, 1)):
+    def __init__(self, in_channel, out_channel, filter_size=(3, 3), stride=(1, 1), pad=(1, 1), bias=False):
         super(BN_ReLU_Conv, self).__init__()
-        self.conv = nn.Conv2d(in_channel, out_channel, filter_size, stride, pad)
+        self.conv = nn.Conv2d(in_channel, out_channel, filter_size, stride, pad, bias=bias)
         self.bn = nn.BatchNorm2d(in_channel)
+        self.relu = nn.ReLU(inplace=True)
 
     def weight_initialization(self):
         self.conv.weight.data = torch.FloatTensor(NN.weight_relu_initialization(self.conv))
-        self.conv.bias.data = torch.FloatTensor(NN.bias_initialization(self.conv, constant=0))
 
     def forward(self, x):
         return self.conv(F.relu(self.bn(x)))
@@ -60,7 +60,7 @@ class DenselyConnectedCNN(NN):
 
     def __init__(self, category_num, block_num=3, block_size=32, growth_rate=12):
         super(DenselyConnectedCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, growth_rate * 2, 3, 1, 1)
+        self.conv1 = nn.Conv2d(3, growth_rate * 2, 3, 1, 1, bias=False)
         in_channel = growth_rate * 2
         for i in six.moves.range(block_num):
             self['dense{}'.format(i)] = DenseBlock(in_channel, block_size, growth_rate)
@@ -76,7 +76,6 @@ class DenselyConnectedCNN(NN):
 
     def weight_initialization(self):
         self.conv1.weight.data = torch.FloatTensor(NN.weight_relu_initialization(self.conv1))
-        self.conv1.bias.data = torch.FloatTensor(NN.bias_initialization(self.conv1, constant=0))
         self.fc1.weight.data = torch.FloatTensor(NN.weight_relu_initialization(self.fc1))
         self.fc1.bias.data = torch.FloatTensor(NN.bias_initialization(self.fc1, constant=0))
         for i in six.moves.range(self.block_num):
